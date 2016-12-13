@@ -8,10 +8,17 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
+
+import java.lang.reflect.Array;
 
 public class MainActivity extends AppCompatActivity {
     boolean login = false;
     public static final int CHECK_OK = 1122;
+    String[] func = {"餘額查詢","交易明細","最新消息","投資理財","離開"};
 
 
     @Override
@@ -24,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings){
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -31,10 +42,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ListView lv = (ListView) findViewById(R.id.listView);
+
         if (login == false){
             Intent it = new Intent(MainActivity.this,LoginActivity.class);
             startActivityForResult(it,CHECK_OK);
         }
+        ArrayAdapter adapter = new ArrayAdapter(MainActivity.this,android.R.layout.simple_list_item_1,func);
+        lv.setAdapter(adapter);
 
 
     }
@@ -43,9 +59,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == CHECK_OK){
-            Log.d("REQ","req");
             if(resultCode == RESULT_OK){
-                Log.d("RES","res");
                 String uid = data.getStringExtra("username");
                 String pw = data.getStringExtra("userpassword");
                 AlertDialog.Builder builder =new AlertDialog.Builder(MainActivity.this);
@@ -58,5 +72,4 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
 }
