@@ -8,14 +8,19 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.lang.reflect.Array;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     boolean login = false;
     public static final int CHECK_OK = 1122;
     String[] func = {"餘額查詢","交易明細","最新消息","投資理財","離開"};
@@ -43,14 +48,37 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ListView lv = (ListView) findViewById(R.id.listView);
+//        ListView lv = (ListView) findViewById(R.id.listView);
+//        ArrayAdapter adapter = new ArrayAdapter(MainActivity.this,android.R.layout.simple_list_item_1,func);
+//        lv.setAdapter(adapter);
+
+//        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+//        final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(MainActivity.this,R.array.notify_array,android.R.layout.simple_expandable_list_item_1);
+//        spinner.setAdapter(adapter);
+//
+//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                Toast.makeText(MainActivity.this,adapter.getItem(position),Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
+        GridView gridView = (GridView) findViewById(R.id.gridView);
+        ArrayAdapter adapter = new ArrayAdapter(MainActivity.this,android.R.layout.simple_list_item_1,func);
+        gridView.setAdapter(adapter);
+
+        gridView.setOnItemSelectedListener(MainActivity.this);
 
         if (login == false){
             Intent it = new Intent(MainActivity.this,LoginActivity.class);
             startActivityForResult(it,CHECK_OK);
         }
-        ArrayAdapter adapter = new ArrayAdapter(MainActivity.this,android.R.layout.simple_list_item_1,func);
-        lv.setAdapter(adapter);
+
+
 
 
     }
@@ -71,5 +99,18 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        switch (position){
+            case 0:
+                break;
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }
