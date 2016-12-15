@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">20161212_test3</string>
+    <string name="title_activity_finance">FinanceActivity</string>
 </resources>

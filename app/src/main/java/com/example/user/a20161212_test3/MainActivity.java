@@ -24,7 +24,7 @@ import android.widget.Toast;
 
 import java.lang.reflect.Array;
 
-public class MainActivity extends AppCompatActivity /*implements AdapterView.OnItemClickListener */{
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
     boolean login = false;
     public static final int CHECK_OK = 1122;
     String[] func = {"餘額查詢","交易明細","最新消息","投資理財","離開"};
@@ -79,10 +79,11 @@ public class MainActivity extends AppCompatActivity /*implements AdapterView.OnI
 //        GridView gridView = (GridView) findViewById(R.id.gridView);
 //        ArrayAdapter adapter = new ArrayAdapter(MainActivity.this,android.R.layout.simple_list_item_1,func);
 //        gridView.setAdapter(adapter);
-//        gridView.setOnItemClickListener(this);
+
 
         GridView gridView = (GridView) findViewById(R.id.gridView);
         IconAdapter adapter = new IconAdapter();
+        gridView.setOnItemClickListener(this);
         gridView.setNumColumns(3);
         gridView.setAdapter(adapter);
 
@@ -92,13 +93,23 @@ public class MainActivity extends AppCompatActivity /*implements AdapterView.OnI
         }
     }
 
-//    @Override
-//    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//        switch (position){
-//            case 0:
-//                break;
-//        }
-//    }
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        switch (position){
+            case 0:
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                Intent it = new Intent(MainActivity.this,FinanceActivity.class);
+                startActivity(it);
+                break;
+            case 4:
+                break;
+        }
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
