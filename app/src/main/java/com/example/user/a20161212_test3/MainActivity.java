@@ -24,7 +24,7 @@ import android.widget.Toast;
 
 import java.lang.reflect.Array;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class MainActivity extends AppCompatActivity /*implements AdapterView.OnItemClickListener */{
     boolean login = false;
     public static final int CHECK_OK = 1122;
     String[] func = {"餘額查詢","交易明細","最新消息","投資理財","離開"};
@@ -76,21 +76,29 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 //
 //            }
 //        });
-        GridView gridView = (GridView) findViewById(R.id.gridView);
-        ArrayAdapter adapter = new ArrayAdapter(MainActivity.this,android.R.layout.simple_list_item_1,func);
-        gridView.setAdapter(adapter);
+//        GridView gridView = (GridView) findViewById(R.id.gridView);
+//        ArrayAdapter adapter = new ArrayAdapter(MainActivity.this,android.R.layout.simple_list_item_1,func);
+//        gridView.setAdapter(adapter);
+//        gridView.setOnItemClickListener(this);
 
-        gridView.setOnItemClickListener(this);
+        GridView gridView = (GridView) findViewById(R.id.gridView);
+        IconAdapter adapter = new IconAdapter();
+        gridView.setNumColumns(3);
+        gridView.setAdapter(adapter);
 
         if (login == false){
             Intent it = new Intent(MainActivity.this,LoginActivity.class);
             startActivityForResult(it,CHECK_OK);
         }
-
-
-
-
     }
+
+//    @Override
+//    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//        switch (position){
+//            case 0:
+//                break;
+//        }
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -112,14 +120,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        switch (position){
-            case 0:
-                break;
-        }
 
-    }
 
     class IconAdapter extends BaseAdapter{
 
