@@ -9,21 +9,30 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.lang.reflect.Array;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     boolean login = false;
     public static final int CHECK_OK = 1122;
     String[] func = {"餘額查詢","交易明細","最新消息","投資理財","離開"};
+    int[] icon = {R.drawable.func_balance,
+            R.drawable.func_exit,
+            R.drawable.func_finance,
+            R.drawable.func_history,
+            R.drawable.func_news};
 
 
     @Override
@@ -71,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         ArrayAdapter adapter = new ArrayAdapter(MainActivity.this,android.R.layout.simple_list_item_1,func);
         gridView.setAdapter(adapter);
 
-        gridView.setOnItemSelectedListener(MainActivity.this);
+        gridView.setOnItemClickListener(this);
 
         if (login == false){
             Intent it = new Intent(MainActivity.this,LoginActivity.class);
@@ -82,6 +91,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -101,16 +111,45 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
     }
 
+
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         switch (position){
             case 0:
                 break;
         }
+
     }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
+    class IconAdapter extends BaseAdapter{
 
+        @Override
+        public int getCount() {
+            return func.length;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return func[position];
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return icon[position];
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            View row = convertView;
+            if(row == null){
+                row = getLayoutInflater().inflate(R.layout.item_row,null);      //取得Layout物件
+                ImageView img = (ImageView) row.findViewById(R.id.item_image);
+                TextView tv = (TextView) row.findViewById(R.id.item_text);
+                img.setImageResource(icon[position]);
+                tv.setText(func[position]);
+            }
+            return row;
+        }
     }
 }
