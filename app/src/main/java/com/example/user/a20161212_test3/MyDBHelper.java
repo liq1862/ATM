@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class MyDBHelper extends SQLiteOpenHelper {
     private static MyDBHelper instence = null;
+
     public static MyDBHelper getInstence(Context ctx){
         if (instence == null){
             instence = new MyDBHelper(ctx,"expence.db",null,1);
