@@ -20,18 +20,6 @@ public class FinanceActivity extends AppCompatActivity {
         setTitle("投資理財");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        ListView listView = (ListView) findViewById(R.id.listView);
-
-        MyDBHelper helper = new MyDBHelper(this,"expence.db",null,1);
-
-        Cursor cursor = helper.getReadableDatabase().query("exp",null,null,null,null,null,null);
-
-        SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,android.R.layout.simple_list_item_2,cursor,
-                new String[] {"info","amount"},
-                new int[] {android.R.id.text1, android.R.id.text2},0);
-        listView.setAdapter(adapter);
-
-
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -41,6 +29,19 @@ public class FinanceActivity extends AppCompatActivity {
                 startActivity(it);
             }
         });
+
+
+        ListView listView = (ListView) findViewById(R.id.listView);
+
+        MyDBHelper helper = new MyDBHelper(this,"expence.db",null,1);
+
+        Cursor cursor = helper.getReadableDatabase().query("exp",null,null,null,null,null,null);
+
+        SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,R.layout.finance_row,cursor,
+                new String[] {"_id","cdate","info","amount"},
+                new int[] {R.id.item_id, R.id.item_cdate, R.id.item_info, R.id.item_amount},0);
+        listView.setAdapter(adapter);
+
     }
 
 }
