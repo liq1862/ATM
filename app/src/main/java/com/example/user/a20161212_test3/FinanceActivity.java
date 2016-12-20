@@ -33,7 +33,7 @@ public class FinanceActivity extends AppCompatActivity {
 
         ListView listView = (ListView) findViewById(R.id.listView);
 
-        MyDBHelper helper = new MyDBHelper(this,"expence.db",null,1);
+        MyDBHelper helper = MyDBHelper.getInstence(this);
 
         Cursor cursor = helper.getReadableDatabase().query("exp",null,null,null,null,null,null);
 

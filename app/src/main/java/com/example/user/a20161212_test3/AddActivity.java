@@ -20,7 +20,7 @@ public class AddActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
         findView();
-        helper = new MyDBHelper(this,"expence.db",null,1);
+        helper = MyDBHelper.getInstence(this);
     }
 
     private void findView() {
